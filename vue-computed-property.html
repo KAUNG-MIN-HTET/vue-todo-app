@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Computed Property</title>
+</head>
+<body>
+
+    <div id="app">
+
+        <h1>{{ name }}</h1>
+        <p>
+            length - {{ lengthOfName }}
+        </p>
+        <p>
+            start - {{ startChar }}
+        </p>
+        <p>
+            reverse - {{ nameReverse }}
+        </p>
+        <p>
+            short - {{ nameShort }}
+        </p>
+
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script>
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                name: "kaung min htet"
+            },
+            computed: {
+                lengthOfName() {
+                    return this.name.length;
+                },
+                startChar() {
+                    return this.name[0];
+                },
+                nameReverse() {
+                    return this.name.split("").reverse().join("");
+                },
+                nameShort() {
+                    return this.name.split(" ").map(el => el[0]).join("");
+                }
+            }
+        });
+
+    </script>
+    
+</body>
+</html>

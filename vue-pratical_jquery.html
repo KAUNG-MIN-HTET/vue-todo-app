@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue-pratical</title>
+    <link rel="stylesheet" href="./myvendor/bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+    <div class="container">
+        <div class="row my-5 justify-content-center">
+            <div class="col-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="border p-3 rounded mb-3">
+                            <h3 class="text-end" id="result">0</h3>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control form-control-lg" placeholder="input 1" id="input1">
+                            </div>
+                            <div class="form-group col-6">
+                                <input type="text" class="form-control form-control-lg" placeholder="input 2" id="input2">
+                            </div>
+                            <div class="col-12 mt-3">
+                                <button class="btn btn-lg btn-outline-primary w-100" id="calc">
+                                    Calculate
+                                </button>
+                                <button class="btn mt-3 btn-primary btn-lg w-100" id="save">
+                                    Save
+                                </button>
+                            </div>
+                        </div>
+                        <ul id="history" class="mt-3">
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="./myvendor/jquery/js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+
+        $("#calc").click(_ => {
+            //input ဖမ်း
+            let input1 = Number($("#input1").val());
+            let input2 = Number($("#input2").val());
+
+            // output ထုတ်
+            return $("#result").html(`${input1} + ${input2} = ${input1 + input2}`);
+        });
+
+        $("#save").click(_ => {
+            // input
+            let lastResult = $("#result").html();
+
+            // output
+            $("#history").append(`<li>${lastResult}</li>`);
+            $("#input1").val("");
+            $("#input2").val("");
+            $("#result").html(0);
+        })
+
+    </script>
+    
+</body>
+</html>

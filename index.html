@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue</title>
+    <style>
+
+        body {
+            background-color: maroon;
+        }
+
+        .name {
+            text-transform: uppercase;
+            color: #fff;
+            font-family: sans-serif;
+            text-align: center;
+        }
+
+        #app {
+            width: 70%;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px 0;
+            text-align: left;
+            border-radius: 5px;
+        }
+
+        #app h2 {
+            margin-left: 40px;
+            color: maroon;
+        }
+
+        #app ul {
+            list-style: none;
+        }
+
+        #app ul li {
+            margin: 0;
+            padding: 0;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+
+        #app b {
+            background-color: rgb(173, 77, 77, 0.3);
+            border: 1px solid red;
+            color: red;
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        #app .margin {
+            margin-left: 40px;
+        }
+
+        button {
+            padding: 5px 10px;
+            background-color: maroon;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.5s;
+        }
+
+        button:hover {
+            background-color: rgb(133, 52, 52);
+        }
+
+        input {
+            padding: 5px;
+            border: 1px solid grey;
+            outline: none;
+            border-radius: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1 class="name">kaung min htet's vue project</h1>
+
+    <div id="app">
+
+        <h2>{{ title }}</h2>
+
+        <ul>
+            <!-- looping -->
+            <li v-for="item in items">
+                <button @click="item.stock += 1">Add</button>
+                <input type="number" v-model.number="item.stock">
+                {{ item.stock }}
+                {{ item.name }}
+                <button @click="item.stock -= 1">Minus</button>
+                <!-- conditional statement -->
+                <b v-if="item.stock === 0">Out of Stock</b>
+            </li>
+            <p>Total Stock : {{ getTotalStock }}</p>
+        </ul>
+
+        <input class="margin" type="text" v-model="itemName">
+        <input class="" type="text" v-model.number="itemStock">
+        <button @click="add()">Add</button>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+
+    <script>
+
+        //dom
+        //document.querySelector("h4").innerHTML = ""
+
+        //virtual dom
+        // reactive
+
+        //Vue instance
+        let app = new Vue({
+
+            //select element
+            el: "#app",
+            data: {
+                message: "Hey vue",
+                title: "Mini Inventory System",
+                items: [
+                    {id: 1,name: "book",stock: 5},
+                    {id: 2,name: "pen",stock: 0},
+                    {id: 3,name: "ruler",stock: 3}
+                ],
+                itemName: "",
+                itemStock: ""
+            },
+            computed: {
+                getTotalStock() {
+                    return this.items.reduce((sum,el) => sum + el.stock , 0);
+                }
+            },
+
+            methods: {
+                add() {
+                    
+                    let newItem = {
+                        id: this.items.length + 1,
+                        name: this.itemName,
+                        stock: this.itemStock
+                    }
+
+                    this.items.push(newItem);
+
+                }
+            }
+
+        });
+
+    </script>
+    
+</body>
+</html>

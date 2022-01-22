@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>v-if</title>
+</head>
+<body>
+
+    <div id="test">
+
+        <h2>{{ randomNumber }}</h2>
+        <h3 v-if="randomNumber > 5">Vue is awesome</h3>
+        <h3 v-else>Sorry</h3>
+        <h1 v-if="abc === 'a'">Its' A</h1>
+        <h1 v-else-if="abc === 'b'">It's B</h1>
+        <h1 v-else-if="abc === 'c'">It's C</h1>
+        <h1 v-else>Not abc</h1>
+
+        <!-- <button v-on:click="run()">Click</button> -->
+        <!-- shorthand -->
+        <button @mouseenter="run()">Click</button>
+
+    </div>
+
+
+    <script src="./js/vue.js"></script>
+    <script>
+
+        let test = new Vue({
+            el: "#test",
+            data: {
+                randomNumber : 0,
+                abc: "a"
+            },
+            methods: {
+                run() {
+                    this.randomNumber = Math.random().toFixed(1) * 10;
+                }
+            }
+        });
+
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue_to_do</title>
+    <link rel="stylesheet" href="./myvendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./myvendor/fontawesomepro/css/all.min.css">
+    <link rel="stylesheet" href="./myvendor/animate.css/animate.min.css">
+    <style type="text/css">
+
+    .done {
+        animation: 0.3s heartBeat;
+    }
+
+    .fa-trash-alt {
+        cursor: pointer;
+    }
+    .fadeindown {
+        animation: 0.3s fadeInDown;
+    }
+
+    .deleted {
+        animation: 0.5s fadeOutRight;
+    }
+
+    </style>
+</head>
+<body>
+
+    <div class="container mt-5" id="app">
+        <div class="row">
+            <div class="col-12 col-md-6 mx-auto">
+                <div class="row">
+                    <div class="col-12">
+                        <h1 class="text-center">To Do List</h1>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex">
+                            <input type="text" @keyup.enter="create()" v-model="newMessage" placeholder="Say Something..." class="form-control">
+                            <a href="#" @click="create()" class="btn btn-primary ms-3"><i class="fas fa-plus-circle"></i></a>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="d-flex justify-content-between mt-3">
+                            <p class="mb-0">Add List</p>
+                            <span class="badge bg-danger" v-if="lists.length == 0">No List</span>
+                            <span class="badge bg-success" v-else-if="doneTotal == lists.length">All Done <i class="fas fa-check"></i></span>
+                            <span class="badge bg-primary" v-else>Done {{ doneTotal }}</span>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <ul class="list-group mt-3">
+                            <li v-for="list in lists" :key="list.id" :class="['list-group-item d-flex justify-content-between fadeindown',{'deleted':list.isDelete}]" @dblclick="list.isEdit = true">
+                                <input v-if="list.isEdit" type="text" v-model="list.message" @keyup.enter="list.isEdit = false" class="form-control">
+                                <div v-else>
+                                    <input type="checkbox" v-model="list.isDone" :id="'customCheck'+list.id">
+                                    <label :class="{'text-decoration-line-through':list.isDone,'text-black-50':list.isDone,done:list.isDone}" :for="'customCheck'+list.id">{{ list.message }}</label>
+                                </div>
+                                <i class="fas fa-trash-alt text-primary ms-2" @click="[del(list.id),list.isDelete=true]"></i>
+                            </li>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js/vue.js"></script>
+    <script type="text/javascript">
+
+        let app = new Vue({
+            el: "#app",
+            data: {
+                currentId: 0,
+                newMessage: "",
+                lists: [
+                    
+                ]
+            },
+            computed: {
+                doneTotal () {
+                    return this.lists.filter(el => el.isDone === true).length;
+                }
+            },
+            methods: {
+                create() {
+                    this.currentId++
+                    this.lists.push({
+                        id: this.currentId,
+                        message: this.newMessage,
+                        isDone: false,
+                        isEdit: false,
+                        isDelete: false
+                    });
+                    this.newMessage = "";
+                },
+                del(x) {
+                    // if(confirm('Are you sure ?')){
+                        setTimeout(() => {
+                            this.lists = this.lists.filter(el => el.id !== x);
+                        },400)
+                    // }
+                }
+            }
+        });
+
+
+    </script>
+    
+</body>
+</html>
